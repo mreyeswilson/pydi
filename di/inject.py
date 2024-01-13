@@ -1,3 +1,5 @@
+import re
+
 class Inject:
     """
     A decorator function for injecting dependencies into classes.
@@ -59,7 +61,11 @@ class Inject:
     def __call__(self, cls):
         modules = {}
         for module in self.modules:
-            name = module.__name__.lower()
+            name = module.__name__
+
+            words = re.findall(r'[A-Z][a-z]*', name)
+            name = "_".join(words).lower()
+
             instance = None
             if name in self.singleton:
                 if name in self.instances:
