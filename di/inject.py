@@ -1,4 +1,53 @@
 class Inject:
+    """
+    A decorator function for injecting dependencies into classes.
+
+    :param modules: A list of modules providing the dependencies.
+    :param singleton: Optional parameter specifying dependencies to be treated as singletons.
+                      If None (default), all dependencies are created per instance.
+                      If a list of module names is provided, the corresponding dependencies are treated as singletons.
+    :return: A decorator function that, when applied to a class, injects the specified dependencies into the class and returns a class instance ready to use.
+
+     **Examples**:
+
+    Applying the `Inject` decorator to a class:
+
+    ```python
+    class ToInject:
+        def __init__(self):
+            pass
+            
+        def foo(self):
+            return "bar"
+
+    @Inject(modules=[ToInject])
+    class MyClass:
+        def __init__(self, to_inject: ToInject):
+            self.to_inject = to_inject
+
+            
+    MyClass.foo() # should returns "bar"
+    ```
+
+    If you provide any dependency as string in the singleton list, that dependency will be instanciated only once.
+
+    ```python
+    class ToInject:
+        def __init__(self):
+            pass
+            
+        def foo(self):
+            return "bar"
+
+    @Inject(modules=[ToInject], singleton=["to_inject"])
+    class MyClass:
+        def __init__(self, to_inject: ToInject):
+            self.to_inject = to_inject
+
+            
+    MyClass.foo() # should returns "bar"
+    ```
+    """
 
     instances = {}
     singleton = []
