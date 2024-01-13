@@ -13,7 +13,7 @@ setup(
     author="Wilson Mendoza",
     author_email="mreyeswilson@gmail.com",
     packages=find_packages(),
-    version="0.0.2",
+    version="0.0.3",
     readme=readme,
     install_requires=requirements,
     package_dir={"di": "di"}
